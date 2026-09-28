@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Elixir Chat</title>
+  <meta name="description" content="Multi-room chat running on the Erlang VM. Join from the browser or from telnet.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Recursive:wght,CASL,MONO@300..1000,0..1,0..1&display=swap">
+  <link rel="stylesheet" href="/app.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <main class="gate" id="gate">
+    <form class="gate-form" id="gate-form">
+      <h1 class="display">Elixir Chat</h1>
+      <p class="gate-lede">Chat rooms running on the Erlang VM. You'll start in #lobby, and <code>/join</code> takes you anywhere else.</p>
+      <label for="nick-input">Nickname</label>
+      <input id="nick-input" name="nick" autocomplete="nickname" autocapitalize="off" spellcheck="false"
+             maxlength="20" pattern="[A-Za-z0-9_\-]{1,20}" required aria-describedby="nick-hint">
+      <p class="hint" id="nick-hint">Up to 20 letters, numbers, dashes or underscores.</p>
+      <button type="submit">Join chat</button>
+    </form>
+  </main>
+
+  <div class="app" id="app" hidden>
+    <header class="topbar">
+      <h1 class="display room-name" id="room-name">#lobby</h1>
+      <div class="topbar-meta">
+        <span class="status" id="status" data-state="connecting">Connecting</span>
+        <span class="me">You're <strong id="me-nick"></strong></span>
+        <button class="people-toggle" id="people-toggle" type="button" aria-expanded="false" aria-controls="sidebar">0 here</button>
+      </div>
+    </header>
+
+    <div class="body">
+      <section class="log" id="log" role="log" aria-live="polite" aria-label="Messages"></section>
+      <aside class="sidebar" id="sidebar" aria-label="People and rooms">
+        <h2>Here now</h2>
+        <ul class="members" id="members"></ul>
+        <h2>Rooms</h2>
+        <ul class="rooms" id="rooms"></ul>
+        <p class="hint">Start a new one with <code>/join name</code></p>
+      </aside>
+    </div>
+
+    <footer class="footer">
+      <form class="composer" id="composer">
+        <label class="visually-hidden" for="input">Message</label>
+        <input id="input" autocomplete="off" maxlength="500" placeholder="Message #lobby">
+        <button type="submit">Send</button>
+      </form>
+      <p class="commands">
+        <code>/join room</code> <code>/nick name</code> <code>/who</code> <code>/help</code>
+      </p>
+    </footer>
+  </div>
+</body>
+</html>

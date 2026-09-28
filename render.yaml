@@ -1,0 +1,9 @@
+# Render Blueprint: https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: elixir-chat
+    runtime: docker
+    plan: free
+    healthCheckPath: /healthz
+    # Deploy a commit to main only after its GitHub Actions checks pass.
+    autoDeployTrigger: checksPass
